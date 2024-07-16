@@ -57,4 +57,18 @@ class DirectorsController < ApplicationController
     redirect_to("/directors")
   end
 
+  def change
+    director_id=params.fetch("director_id")
+    match_list = Director.where({:id=>director_id})
+    @matching_director = match_list.at(0)
+
+    @matching_director.name=params.fetch("the_name")
+    @matching_director.dob=params.fetch("the_dob")
+    @matching_director.bio=params.fetch("the_bio")
+    @matching_director.image=params.fetch("the_image")
+    @matching_director.save
+    redirect_to("/directors/#{director_id}")
+    
+  end
+
 end
